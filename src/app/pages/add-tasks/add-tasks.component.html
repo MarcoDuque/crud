@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col">
+    <h1 mat-dialog-title>Tarea</h1>
+  </div>
+  <div class="col text-right">
+    <button class="btn btn-danger" (click)="close()"><i class="fa fa-close "></i></button>
+  </div>
+</div>
+
+<hr>
+
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form (ngSubmit)="saveTask(formAddTask)" #formAddTask="ngForm">
+
+      <span *ngIf="formAddTask.submitted && formAddTask.controls['tittle'].errors"
+        class="text-danger animated fadeIn">El
+        Título es obligatorio</span>
+      <div class="form-group">
+        <label>Título</label>
+        <input [(ngModel)]="task.tittle" type="text" class="form-control" placeholder="Título" required name="tittle">
+      </div>
+
+      <div class="form-group">
+        <label>Prioridad</label>
+        <select class="selectpicker form-control" [(ngModel)]="task.taskPriority" name="taskPriority">
+          <option data-tokens="high">Alta</option>
+          <option data-tokens="medium">Media</option>
+          <option data-tokens="low">Baja</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input matInput [matDatepicker]="picker" placeholder="Fecha de vencimiento" [(ngModel)]="task.dueDate"
+          name="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <hr>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

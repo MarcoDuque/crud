@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <h1>Listado de Tareas</h1>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-primary mr-2" (click)="openModal()"> <i class="fa fa-plus"></i> Agregar </button>
+      <button class="btn btn-outline-danger" (click)="closeSession()">Cerrar Sesión</button>
+    </form>
+  </div>
+</nav>
+<!-- FORMULARIO -->
+<table *ngIf="!loading" class="table animated fadeIn faster">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre tarea</th>
+      <th scope="col">Prioridad</th>
+      <th scope="col">Fecha de vencimiento</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks; let i = index">
+      <th scope="row"> {{i+1}} </th>
+      <td> {{task.tittle}} </td>
+      <td> {{task.taskPriority}} </td>
+      <td> {{task.dueDate | date}} <i *ngIf="task.warning" title="Tu tarea esta próxima a vencer" class="fa fa-info"></i> </td>
+      <td>
+        <button (click)="openModal(task)" class="btn btn-info m-r-1"><i class="fa fa-pencil"></i></button>
+        <button (click)="deleteTask(task._id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-headiong">Cargando</h4>
+  <p>
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+    Espere por favor
+  </p>
+</div>
+
+<div *ngIf="!loading && tasks.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+  <h4 class="alert-headiong">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div>
